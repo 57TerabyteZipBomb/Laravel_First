@@ -19,7 +19,11 @@
 
               <x-nav-link href='/guardians' :active="request()->is('guardians')">Guardians</x-nav-link>
 
-              <x-nav-link href='/classrooms' :active="request()->is('classrooms')">What</x-nav-link>
+              <x-nav-link href='/classrooms' :active="request()->is('classrooms')">Classrooms</x-nav-link>
+
+              <x-nav-link href='/teachers' :active="request()->is('teachers')">Teachers</x-nav-link>
+
+              <x-nav-link href='/subjects' :active="request()->is('subjects')">Subjects</x-nav-link>
             </div>
           </div>
         </div>

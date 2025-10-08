@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Classroom;
 use App\Models\Guardian;
+use App\Models\Subject;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Student;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,12 +31,47 @@ class DatabaseSeeder extends Seeder
 
         $classrooms = ['10 PPLG 1', '10 PPLG 2', '11 PPLG 1', '11 PPLG 2'];
 
-        Classroom::factory()
-            ->count(count($classrooms))
+        Classroom::factory()->count(count($classrooms))
             ->sequence(
                 fn($sequence) => ['name' => $classrooms[$sequence->index]]
             )
             ->hasStudents(5)
+            ->create();
+
+        //ts formatting pmo
+
+        $subjects = [
+            [
+                'name' => 'Test',
+                'description' => 'subject test description test yay'
+            ],
+            [
+                'name' => 'Mobile Dev',
+                'description' => 'mobile app development using Flutter'
+            ],
+            [
+                'name' => 'Desktop Dev',
+                'description' => 'desktop app development using Visual Studio WinForms'
+            ],
+            [
+                'name' => 'Web Dev',
+                'description' => 'website development using Laravel + Tailwind CSS'
+            ],
+            [
+                'name' => 'Game Dev',
+                'description' => 'game development using Unity'
+            ]
+        ];
+
+        Subject::factory()
+            ->count(count($subjects))
+            ->sequence(
+                fn($sequence) => [
+                    'name' => $subjects[$sequence->index]['name'],
+                    'description' => $subjects[$sequence->index]['description'],
+                ]
+            )
+            ->hasTeacher(1)
             ->create();
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 //main place to put all the routing stuff
@@ -19,3 +21,5 @@ Route::get("/new-contacts", action: [ContactController::class,"index"]);
 Route::get("/students", action: [StudentController::class,"index"]);
 Route::get("/guardians", action: [GuardianController::class,"index"]);
 Route::get("/classrooms", action: [ClassroomController::class,"index"]);
+Route::get("/teachers", action: [TeacherController::class,"index"]);
+Route::get("/subjects", action: [SubjectController::class,"index"]);
