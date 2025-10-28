@@ -12,34 +12,6 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = [
-            [
-                'name' => 'Gerrard',
-                'email' => 'Ger.rard@gmail.com',
-                'address' => 'kaliwungu'
-            ],
-            [
-                'name' => 'Galih',
-                'email' => 'Gal.ih@gmail.com',
-                'address' => 'kos mitra'
-            ],
-            [
-                'name' => 'Rakha',
-                'email' => 'Rak.ha@gmail.com',
-                'address' => 'kos mitra'
-            ],
-            [
-                'name' => 'Enriko',
-                'email' => 'En.riko@gmail.com',
-                'address' => 'kos mitra'
-            ],
-            [
-                'name' => 'Rafan',
-                'email' => 'Raf.an@gmail.com',
-                'address' => 'kos permata bunda'
-            ]
-        ];
-
         $students_db = Student::all();
 
         return view("student", [
@@ -47,7 +19,7 @@ class StudentController extends Controller
             'students' => $students_db
         ]);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.

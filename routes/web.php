@@ -23,3 +23,4 @@ Route::get("/guardians", action: [GuardianController::class,"index"]);
 Route::get("/classrooms", action: [ClassroomController::class,"index"]);
 Route::get("/teachers", action: [TeacherController::class,"index"]);
 Route::get("/subjects", action: [SubjectController::class,"index"]);
+Route::get("/dashboard", function () {return view('admin.dashboard');});
