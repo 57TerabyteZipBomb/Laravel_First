@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassroomAdminController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EvilController;
 use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StudentAdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
@@ -23,4 +26,11 @@ Route::get("/guardians", action: [GuardianController::class,"index"]);
 Route::get("/classrooms", action: [ClassroomController::class,"index"]);
 Route::get("/teachers", action: [TeacherController::class,"index"]);
 Route::get("/subjects", action: [SubjectController::class,"index"]);
-Route::get("/dashboard", function () {return view('admin.dashboard');});
+Route::get("/admin", action: [AdminController::class,"home"]);
+Route::get("/admin/test", action: [AdminController::class,"test"]);
+// Admin: Students
+Route::get('/admin/students', [StudentAdminController::class, 'index'])->name('student.index');
+Route::post('/admin/students', [StudentAdminController::class, 'store'])->name('student.add');
+// Admin: Classrooms
+Route::get('/admin/classrooms', [ClassroomAdminController::class, 'index'])->name('classroom.index');
+Route::post('/admin/classrooms', [ClassroomAdminController::class, 'store'])->name('classroom.add');

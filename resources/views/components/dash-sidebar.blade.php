@@ -25,11 +25,10 @@
         </form>
 
         <ul class="space-y-2">
-            <x-dash-sidelink title="Home" icon="home" />
-            <x-dash-sidelink title="Profile" icon="profile" />
-            <x-dash-sidelink title="Contacts" icon="contacts" />
-            <x-dash-sidelink title="Students" icon="students" />
-            <x-dash-sidelink title="Classrooms" icon="classrooms" />
+            <x-dash-sidelink title="Home" icon="home" href="/admin"/>
+            <x-dash-sidelink title="Test" icon="profile" href="/admin/test"/>
+            <x-dash-sidelink title="Students" icon="students" href="/admin/students"/>
+            <x-dash-sidelink title="Classrooms" icon="classrooms" href="/admin/classrooms"/>
             <x-dash-sidelink title="Guardians" icon="guardians" />
             <x-dash-sidelink title="Teachers" icon="teachers" />
             <x-dash-sidelink title="Subjects" icon="subjects" />

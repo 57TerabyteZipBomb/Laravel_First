@@ -12,6 +12,8 @@ class Classroom extends Model
 
     //protected $with = ['student'];
 
+    protected $fillable = ['name'];
+
     public function students(){
         return $this->hasMany(Student::class, 'classroom_id');
     }

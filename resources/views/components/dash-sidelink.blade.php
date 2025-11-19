@@ -1,5 +1,5 @@
 <!-- resources/views/components/sidelink.blade.php -->
-@props(['title', 'icon' => null, 'dropdown' => false, 'links' => [], 'badge' => null])
+@props(['title', 'icon' => null, 'dropdown' => false, 'links' => [], 'badge' => null, 'href' => '#'])
 
 <li>
     @if($dropdown)
@@ -32,9 +32,9 @@
             @endforeach
         </ul>
     @else
-        <a href="#"
-            class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white 
-            hover:bg-gray-100 dark:hover:bg-gray-700 group">
+        <a href="{{ $href }}"
+            class="flex items-center p-2 text-base font-medium rounded-lg group
+            {{ request()->is(trim($href, '/')) ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-900 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700' }}">
             @if($icon)
                 <x-icon :name="$icon" class="w-6 h-6 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" />
             @endif
