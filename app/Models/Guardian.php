@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Guardian extends Model
 {
+    protected $fillable = [
+        'name',
+        'birthday',
+        'job',
+        'phone',
+        'email',
+        'address',
+    ];
+
     /** @use HasFactory<\Database\Factories\GuardianFactory> */
     use HasFactory;
 }

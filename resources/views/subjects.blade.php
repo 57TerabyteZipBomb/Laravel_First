@@ -10,6 +10,7 @@
                     <th class="px-6 py-3 border-b border-gray-700">No</th>
                     <th class="px-6 py-3 border-b border-gray-700">Name</th>
                     <th class="px-6 py-3 border-b border-gray-700">Description</th>
+                    <th class="px-6 py-3 border-b border-gray-700">Teacher</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-700 bg-gray-900">
@@ -22,6 +23,13 @@
                                 <summary> description </summary>
                                 {{ $subject->description }}
                             </details>
+                        </td>
+                        <td class="px-4 py-3">
+                            @if($subject->teacher)
+                                {{ $subject->teacher->name }}
+                            @else
+                                <strong>No Teacher Assigned</strong>
+                            @endif
                         </td>
                 @endforeach
             </tbody>

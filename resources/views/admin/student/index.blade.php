@@ -2,9 +2,9 @@
     <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
-
                 <!-- Alpine modal control -->
-                <div x-data="{ openAddModal: false }">
+                <div
+                    x-data="{openAddModal: false, openEditModal: false, openDeleteModal: false, editStudent: {}, deleteStudentId: null}">
                     <!-- Toolbar -->
                     <div class="flex justify-between items-center p-4">
                         <div class="w-full md:w-1/2">
@@ -52,149 +52,159 @@
 
                             <!-- Include the student-add partial -->
                             @include('admin.student.add', ['classrooms' => $classrooms])
-
                         </div>
                     </div>
-                </div>
 
-                <!-- Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th class="px-4 py-3">No</th>
-                                <th class="px-4 py-3">Name</th>
-                                <th class="px-4 py-3">Birthday</th>
-                                <th class="px-4 py-3">Classroom</th>
-                                <th class="px-4 py-3">Email</th>
-                                <th class="px-4 py-3">Address</th>
-                                <th class="px-4 py-3"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($students as $student)
-                                <tr class="border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td class="px-4 py-3">{{ $students->firstItem() + $loop->index }}</td>
-                                    <td class="px-4 py-3">{{ $student->name }}</td>
-                                    <td class="px-4 py-3">{{ $student->birthday }}</td>
-                                    <td class="px-4 py-3">{{ $student->classroom->name }}</td>
-                                    <td class="px-4 py-3">{{ $student->email }}</td>
-                                    <td class="px-4 py-3">{{ $student->address }}</td>
-                                    <td class="px-4 py-3 flex items-center justify-end">
-                                        <button id="apple-ipad-air-dropdown-button"
-                                            data-dropdown-toggle="apple-ipad-air-dropdown"
-                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
-                                            type="button">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-                                            </svg>
-                                        </button>
-                                        <div id="apple-ipad-air-dropdown"
-                                            class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="apple-ipad-air-dropdown-button">
-                                                <li>
-                                                    <a href="#"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#"
-                                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                    @include('admin.student.edit', ['classrooms' => $classrooms])
+                    @include('admin.student.delete')
+
+                    <!-- Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th class="px-4 py-3">No</th>
+                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Birthday</th>
+                                    <th class="px-4 py-3">Classroom</th>
+                                    <th class="px-4 py-3">Email</th>
+                                    <th class="px-4 py-3">Address</th>
+                                    <th class="px-4 py-3"></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($students as $student)
+                                    <tr class="border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <td class="px-4 py-3">{{ $students->firstItem() + $loop->index }}</td>
+                                        <td class="px-4 py-3">{{ $student->name }}</td>
+                                        <td class="px-4 py-3">{{ $student->birthday }}</td>
+                                        <td class="px-4 py-3">{{ $student->classroom->name }}</td>
+                                        <td class="px-4 py-3">{{ $student->email }}</td>
+                                        <td class="px-4 py-3">{{ $student->address }}</td>
+                                        <td class="px-4 py-3 flex items-center justify-end">
+                                            <button id="fuck you" data-dropdown-toggle={{ $student->id }}
+                                                class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
+                                                type="button">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                    viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                </svg>
+                                            </button>
+                                            <div id={{ $student->id }}
+                                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                                    aria-labelledby="apple-ipad-air-dropdown-button">
+                                                    <li>
+                                                        <button
+                                                            @click="openEditModal = true; editStudent = {{ $student->toJson() }};"
+                                                            class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                            Edit
+                                                        </button>
 
-                    <!-- Pagination -->
-                    @if ($students->hasPages())
-                        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                            aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                Showing
-                                <span
-                                    class="font-semibold text-gray-900 dark:text-white">{{ $students->firstItem() }}</span>
-                                to
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $students->lastItem() }}</span>
-                                of
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $students->total() }}</span>
-                            </span>
+                                                    </li>
+                                                    <li>
+                                                        <button
+                                                            @click="openDeleteModal = true; deleteStudentId = {{ $student->id }};"
+                                                            class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                            Delete
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 
-                            <ul class="inline-flex items-stretch -space-x-px">
-                                {{-- Previous Page --}}
-                                @if ($students->onFirstPage())
-                                    <li>
-                                        <span
-                                            class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-400 bg-white rounded-l-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                @else
-                                    <li>
-                                        <a href="{{ $students->previousPageUrl() }}"
-                                            class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                @endif
+                        <!-- Pagination -->
+                        @if ($students->hasPages())
+                            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                                aria-label="Table navigation">
+                                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                    Showing
+                                    <span
+                                        class="font-semibold text-gray-900 dark:text-white">{{ $students->firstItem() }}</span>
+                                    to
+                                    <span
+                                        class="font-semibold text-gray-900 dark:text-white">{{ $students->lastItem() }}</span>
+                                    of
+                                    <span
+                                        class="font-semibold text-gray-900 dark:text-white">{{ $students->total() }}</span>
+                                </span>
 
-                                {{-- Page Numbers --}}
-                                @foreach ($students->links()->elements[0] ?? [] as $page => $url)
-                                    @if ($page == $students->currentPage())
+                                <ul class="inline-flex items-stretch -space-x-px">
+                                    {{-- Previous Page --}}
+                                    @if ($students->onFirstPage())
                                         <li>
                                             <span
-                                                class="flex items-center justify-center text-sm z-10 py-2 px-3 text-primary-700 bg-primary-100 border border-primary-300 dark:bg-gray-700 dark:border-gray-700 dark:text-white">{{ $page }}</span>
+                                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-400 bg-white rounded-l-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
                                         </li>
                                     @else
                                         <li>
-                                            <a href="{{ $url }}"
-                                                class="flex items-center justify-center text-sm py-2 px-3 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                            <a href="{{ $students->previousPageUrl() }}"
+                                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
                                         </li>
                                     @endif
-                                @endforeach
 
-                                {{-- Next Page --}}
-                                @if ($students->hasMorePages())
-                                    <li>
-                                        <a href="{{ $students->nextPageUrl() }}"
-                                            class="flex items-center justify-center h-full py-1.5 px-3 text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li>
-                                        <span
-                                            class="flex items-center justify-center h-full py-1.5 px-3 text-gray-400 bg-white rounded-r-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                    clip-rule="evenodd" />
-                                            </svg>
-                                        </span>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
-                    @endif
+                                    {{-- Page Numbers --}}
+                                    @foreach ($students->links()->elements[0] ?? [] as $page => $url)
+                                        @if ($page == $students->currentPage())
+                                            <li>
+                                                <span
+                                                    class="flex items-center justify-center text-sm z-10 py-2 px-3 text-primary-700 bg-primary-100 border border-primary-300 dark:bg-gray-700 dark:border-gray-700 dark:text-white">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <a href="{{ $url }}"
+                                                    class="flex items-center justify-center text-sm py-2 px-3 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endforeach
+
+                                    {{-- Next Page --}}
+                                    @if ($students->hasMorePages())
+                                        <li>
+                                            <a href="{{ $students->nextPageUrl() }}"
+                                                class="flex items-center justify-center h-full py-1.5 px-3 text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <span
+                                                class="flex items-center justify-center h-full py-1.5 px-3 text-gray-400 bg-white rounded-r-lg border border-gray-300 cursor-not-allowed dark:bg-gray-800 dark:border-gray-700 dark:text-gray-500">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        @endif
+                    </div>
                 </div>
-
             </div>
         </div>
     </section>

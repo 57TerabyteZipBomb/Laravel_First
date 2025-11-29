@@ -29,9 +29,9 @@
             <x-dash-sidelink title="Test" icon="profile" href="/admin/test"/>
             <x-dash-sidelink title="Students" icon="students" href="/admin/students"/>
             <x-dash-sidelink title="Classrooms" icon="classrooms" href="/admin/classrooms"/>
-            <x-dash-sidelink title="Guardians" icon="guardians" />
-            <x-dash-sidelink title="Teachers" icon="teachers" />
-            <x-dash-sidelink title="Subjects" icon="subjects" />
+            <x-dash-sidelink title="Guardians" icon="guardians" href="/admin/guardians"/>
+            <x-dash-sidelink title="Teachers" icon="teachers" href="/admin/teachers"/>
+            <x-dash-sidelink title="Subjects" icon="subjects" href="/admin/subjects"/>
         </ul>
     </div>
 </aside>

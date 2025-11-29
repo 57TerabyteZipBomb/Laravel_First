@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classroom;
+use App\Models\Subject;
 use Illuminate\Http\Request;
-use App\Models\Student;
 
-class StudentAdminController extends Controller
+class SubjectAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("admin.student.index", [
-            'students' => Student::with('classroom')->paginate(10),
-            'classrooms' => Classroom::all()
+        return view('admin.subjects.index', [
+            'subjects' => Subject::with('teacher')->get()
         ]);
     }
 
@@ -34,16 +32,15 @@ class StudentAdminController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'birthday' => 'required|date',
-            'classroom_id' => 'required|exists:classrooms,id',
-            'email' => 'required|email|unique:students,email',
-            'address' => 'required|string',
+            'description' => 'required|string',
+            'teacher_id' => 'nullable|exists:teachers,id',
         ]);
 
-        Student::create($validated);
+        Subject::create($validated);
 
-        return redirect()->back()->with('success', 'Class added successfully!');
+        return redirect()->back()->with('success', 'Subject added successfully!');
     }
+
 
     /**
      * Display the specified resource.
@@ -66,20 +63,25 @@ class StudentAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $student = Student::findOrFail($id);
+        $subject = Subject::findOrFail($id);
 
-        $student->update($request->all());
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'teacher_id' => 'nullable|exists:teachers,id',
+        ]);
 
-        return redirect()->back()->with('success', 'Student updated!');
+        $subject->update($validated);
+
+        return redirect()->back()->with('success', 'Subject updated successfully!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(string $id)
     {
-        $student->delete();
-
-        return back()->with('success', 'Student deleted successfully.');
+        //
     }
 }
